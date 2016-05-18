@@ -36,7 +36,7 @@ class Gibbon
   def call(method, params = {})
     api_url = base_api_url + method
     params = @default_params.merge(params)
-    response = self.class.post(api_url, body: CGI::escape(MultiJson.dump(params)), timeout: @timeout)
+    response = self.class.post(api_url, body: CGI::escape(MultiJson.dump(params)), headers: { 'Content-Type' => 'application/json' }, timeout: @timeout)
 
     # MailChimp API sometimes returns JSON fragments (e.g. true from listSubscribe)
     # so we parse after adding brackets to create a JSON array so 
